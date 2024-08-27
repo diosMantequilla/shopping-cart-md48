@@ -73,6 +73,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    function renderizarCarrito() {
+        // limpiar el carrito
+        DOMcarrito.textContent = ''
+        // creamos un carrito que no tenga dumplicados
+        const carritoSinDuplicados = [...new Set(carrito)]
+        carritoSinDuplicados.forEach( (item) => {
+            
+            const miItem = baseDeDatos.filter( (itemBaseDeDatos) => {
+                return itemBaseDeDatos.id === parseInt(item) // convertimos item en un numero entero
+            } )
+
+            // contar los elementos o numero de unidades por producto
+            const numeroUnidadesItem = carrito.reduce( (total, itemId) => {
+                return itemId === item ? total += 1 : total
+            }, 0 )
+
+            // creamos el nodo del item para el carrito
+            const miNodo = document.createElement('li')
+            miNodo.classList.add('list-group-item', 'text-right', 'mx-2')
+            miNodo.textContent = `${numeroUnidadesItem} x ${miItem[0].nombre} -> ${miItem[0].precio} ${divisa}`
+
+            // agregamos boton para eliminar item del carrito
+            // -------------------------------------------------
+            DOMcarrito.appendChild(miNodo)
+        })
+
+        // obtener el total y mostrarlo
+        // -----------------------------
+
+    }
+
     renderizarProductos()
+    renderizarCarrito()
 
 })
