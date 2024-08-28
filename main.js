@@ -59,6 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const miNodoBoton = document.createElement('button')
             miNodoBoton.classList.add('btn', 'btn-primary')
             miNodoBoton.textContent = '+'
+            miNodoBoton.setAttribute('marcador', info.id)
+            miNodoBoton.addEventListener('click', anadirProductosAlCarrito)
 
             // vamos a juntar todos los elementos creados
             miNodo.appendChild(miNodoImagen)
@@ -102,6 +104,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // obtener el total y mostrarlo
         // -----------------------------
 
+    }
+
+    function anadirProductosAlCarrito(evento) {
+        // agregamos al carrito marcador del elemento seleccionado
+        carrito.push(evento.target.getAttribute('marcador'))
+        // actualizar el carrito
+        renderizarCarrito()
     }
 
     renderizarProductos()
